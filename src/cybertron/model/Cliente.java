@@ -8,7 +8,7 @@ import org.openxava.annotations.*;
 
 @Entity
 @Tab(properties="usuario, nombre, grupo.nombre")
-@View(name="NoMacs", members="usuario; nombre; grupo; telefono; email")
+@View(name="Simple", members="usuario, nombre")
 public class Cliente {
 
 	@Id
@@ -33,6 +33,9 @@ public class Cliente {
 	@ListAction("ManyToMany.new")
 	@CollectionView("NoClientes")
 	private Collection<Mac> macs;
+	
+	@Stereotype("MEMO")
+	private String observaciones;
 	
 	public String getUsuario() {
 		return usuario;
@@ -82,4 +85,11 @@ public class Cliente {
 		this.macs = macs;
 	}
 
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
 }

@@ -10,6 +10,9 @@ import org.openxava.calculators.*;
 import cybertron.calculators.*;
 
 @Entity
+@View(members="codigo, fecha;"
+		+ "cliente;"
+		+ "detalles")
 public class Factura {
 
 	@Id
@@ -21,11 +24,12 @@ public class Factura {
 	private Date fecha;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@ReferenceView("Simple")
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy="padre", cascade=CascadeType.ALL)
 	@ListProperties("producto.codigo, producto.descripcion, cantidad")
-	private Collection<Detalle> detalle = new ArrayList<Detalle>();
+	private Collection<Detalle> detalles = new ArrayList<Detalle>();
 
 	public int getCodigo() {
 		return codigo;
@@ -51,11 +55,11 @@ public class Factura {
 		this.cliente = cliente;
 	}
 
-	public Collection<Detalle> getDetalle() {
-		return detalle;
+	public Collection<Detalle> getDetalles() {
+		return detalles;
 	}
 
-	public void setDetalle(Collection<Detalle> detalle) {
-		this.detalle = detalle;
+	public void setDetalles(Collection<Detalle> detalles) {
+		this.detalles = detalles;
 	}
 }

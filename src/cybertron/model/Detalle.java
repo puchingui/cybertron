@@ -2,7 +2,10 @@ package cybertron.model;
 
 import javax.persistence.*;
 
+import org.openxava.annotations.*;
+
 @Entity
+@View(members="producto, cantidad")
 public class Detalle extends Identificable {
 
 	@ManyToOne
@@ -11,6 +14,8 @@ public class Detalle extends Identificable {
 	private int cantidad;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
+	@ReferenceView("Simple")
+	@NoFrame
 	private Producto producto;
 
 	public Factura getPadre() {
