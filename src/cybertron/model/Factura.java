@@ -1,6 +1,5 @@
-/*package cybertron.model;
+package cybertron.model;
 
-import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -8,22 +7,55 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 
-public class Factura extends Identificable {
+import cybertron.calculators.*;
 
-	/***
-	 * La tarifa minima es una semana por 100 pesos
-	 
-	@Stereotype("MONEY")
-	private final BigDecimal tarifa = new BigDecimal(100.00);
-	private final String producto = "Semana(s) de conexion a cyberSotano";
+@Entity
+public class Factura {
+
+	@Id
+	@DefaultValueCalculator(value=ProximoCodigoFactura.class)
+	private int codigo;
 	
+	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private Date fecha;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	private Cliente cliente;
 	
-	//private int cantidad;
-	
-	
-}*/
+	@OneToMany(mappedBy="padre", cascade=CascadeType.ALL)
+	@ListProperties("producto.codigo, producto.descripcion, cantidad")
+	private Collection<Detalle> detalle = new ArrayList<Detalle>();
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Collection<Detalle> getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(Collection<Detalle> detalle) {
+		this.detalle = detalle;
+	}
+}

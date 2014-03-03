@@ -7,24 +7,24 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-public class Servicio {
+public class Producto {
 
 	@Id
 	@Column(length=4)
-	private int codigo;
+	private String codigo;
 	
 	@Column(length=50)
 	@Required
 	private String descripcion;
 	
 	@Stereotype("MONEY")
-	private BigDecimal tarifa;
+	private BigDecimal precio;
 
-	public int getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
@@ -36,11 +36,11 @@ public class Servicio {
 		this.descripcion = descripcion;
 	}
 
-	public BigDecimal getTarifa() {
-		return tarifa;
+	public BigDecimal getPrecio() {
+		return precio;
 	}
 
-	public void setTarifa(BigDecimal tarifa) {
-		this.tarifa = tarifa;
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
 	}
 }
