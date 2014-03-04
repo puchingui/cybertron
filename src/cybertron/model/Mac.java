@@ -7,7 +7,7 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-@View(name="NoClientes", members="mac")
+@View(name="Cliente", members="mac")
 public class Mac {
 
 	@Id
@@ -16,7 +16,7 @@ public class Mac {
 	
 	@ManyToMany(mappedBy="macs")
 	@ListAction("ManyToMany.new")
-	@CollectionView("NoMacs")
+	@CollectionView("Mac")
 	private Collection<Cliente> clientes;
 
 	public String getMac() {
