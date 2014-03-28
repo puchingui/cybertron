@@ -12,7 +12,7 @@ import cybertron.calculators.*;
 @Entity
 @View(members="codigo, fecha;"
 		+ "cliente;"
-		+ "detalles")
+		+ "producto")
 public class Factura {
 
 	@Id
@@ -23,14 +23,13 @@ public class Factura {
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private Date fecha;
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@ManyToOne
 	@ReferenceView("Simple")
 	private Cliente cliente;
 	
-	@OneToMany(mappedBy="padre", cascade=CascadeType.ALL)
-	@ListProperties("producto.codigo, producto.descripcion, cantidad")
-	private Collection<Detalle> detalles = new ArrayList<Detalle>();
-
+	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	private Producto producto;
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -55,11 +54,11 @@ public class Factura {
 		this.cliente = cliente;
 	}
 
-	public Collection<Detalle> getDetalles() {
-		return detalles;
+	public Producto getProducto() {
+		return producto;
 	}
 
-	public void setDetalles(Collection<Detalle> detalles) {
-		this.detalles = detalles;
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 }

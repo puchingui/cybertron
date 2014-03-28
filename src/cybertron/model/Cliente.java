@@ -30,6 +30,9 @@ public class Cliente {
 	
 	@Stereotype("EMAIL")
 	private String email;
+	
+	@Stereotype("MEMO")
+	private String observaciones;
 
 	@ManyToMany
 	@JoinTable(name="cliente_macs")
@@ -37,9 +40,10 @@ public class Cliente {
 	@CollectionView("Cliente")
 	private Collection<Mac> macs;
 	
-	@Stereotype("MEMO")
-	private String observaciones;
-	
+	@OneToMany(mappedBy="cliente")
+	@ListAction("ManyToMany.new")
+	private Collection<Factura> facturas;
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -80,6 +84,14 @@ public class Cliente {
 		this.email = email;
 	}
 
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
 	public Collection<Mac> getMacs() {
 		return macs;
 	}
@@ -88,11 +100,11 @@ public class Cliente {
 		this.macs = macs;
 	}
 
-	public String getObservaciones() {
-		return observaciones;
+	public Collection<Factura> getFacturas() {
+		return facturas;
 	}
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
+	public void setFacturas(Collection<Factura> facturas) {
+		this.facturas = facturas;
 	}
 }
