@@ -27,6 +27,31 @@ public class ClienteTest extends ModuleTestBase {
 		assertValue("email","");
 		assertValue("observaciones","");
 		
+		//Leer
+		setValue("usuario", "prueba");
+		execute("CRUD.refresh");
+		assertValue("nombre", "Usuario de Prueba");
+		//assertValue("grupo", "Clientes");
+		assertValue("telefono", "8093881234");
+		assertValue("email", "usuario.prueba@gmail.com");
+		assertValue("observaciones", "Probando modulo cliente");
+		
+		//Actualizar
+		setValue("nombre", "Usuario de Prueba MODIFICADO");
+		execute("CRUD.save");
+		assertNoErrors();
+		assertValue("usuario", "");
+		assertValue("nombre", "");
+		
+		//Verifica si se ha modificado
+		setValue("usuario", "prueba");
+		execute("CRUD.refresh");
+		assertValue("usuario", "prueba");
+		assertValue("nombre", "Usuario de Prueba MODIFICADO");
+		
+		//Borrar
+		execute("CRUD.delete");
+		assertMessage("Cliente borrado satisfactoriamente");
 	}
 
 }
