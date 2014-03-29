@@ -7,8 +7,9 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-@Tab(properties="usuario, nombre, grupo.nombre")
+@Tab(properties="usuario, activo, nombre, grupo.nombre, telefono, observaciones")
 @Views({
+	@View(members="usuario, activo; nombre; grupo; telefono; email; observaciones; macs; facturas"),
 	@View(name="Simple", members="usuario, nombre"), 
 	@View(name="Mac", members="usuario, nombre; grupo, telefono, email, macs")
 })
@@ -42,7 +43,11 @@ public class Cliente {
 	
 	@OneToMany(mappedBy="cliente")
 	@ListAction("ManyToMany.new")
+	@ListProperties("codigo, fecha, producto.codigo, producto.descripcion, producto.precio")
 	private Collection<Factura> facturas;
+	
+	@ReadOnly
+	private boolean activo;
 
 	public String getUsuario() {
 		return usuario;
@@ -106,5 +111,13 @@ public class Cliente {
 
 	public void setFacturas(Collection<Factura> facturas) {
 		this.facturas = facturas;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 }

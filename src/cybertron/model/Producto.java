@@ -7,7 +7,7 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-@View(name="Simple", members="codigo, descripcion")
+@View(name="Factura", members="codigo, descripcion, precio")
 public class Producto {
 
 	@Id

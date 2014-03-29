@@ -10,6 +10,7 @@ import org.openxava.calculators.*;
 import cybertron.calculators.*;
 
 @Entity
+@Tab(properties="codigo, fecha, cliente.usuario, producto.codigo, producto.precio, cliente.observaciones")
 @View(members="codigo, fecha;"
 		+ "cliente;"
 		+ "producto")
@@ -28,6 +29,7 @@ public class Factura {
 	private Cliente cliente;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@ReferenceView("Factura")
 	private Producto producto;
 	
 	public int getCodigo() {
