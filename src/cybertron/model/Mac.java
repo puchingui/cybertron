@@ -7,7 +7,6 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-@View(name="Cliente", members="mac")
 public class Mac {
 
 	@Id

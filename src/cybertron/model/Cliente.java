@@ -38,7 +38,6 @@ public class Cliente {
 	@ManyToMany
 	@JoinTable(name="cliente_macs")
 	@ListAction("ManyToMany.new")
-	@CollectionView("Cliente")
 	private Collection<Mac> macs;
 	
 	@OneToMany(mappedBy="cliente")
